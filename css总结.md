@@ -71,7 +71,30 @@ div {
 </div>
 ```
 
-4. 
+4. input placeholder样式修改：
+```
+input::-webkit-input-placeholder {
+  -webkit-text-fill-color: #999;
+  color: #999;
+}
+
+input:-moz-placeholder {
+  -webkit-text-fill-color: #999;
+  color: #999;
+}
+
+input:-ms-input-placeholder {
+  -webkit-text-fill-color: #999;
+  color: #999;
+}
+
+input:disabled {
+  -webkit-text-fill-color: rgba(0, 0, 0, 1);
+  -webkit-opacity: 1;
+  color: inherit;
+  opacity: inherit;
+}
+```
 
 
 
