@@ -109,3 +109,42 @@ function IdentityCodeValid (code) {
 */
 ```
 
+4. ES5代码规范：
+- 拷贝数组： var newArr = oldArr.slice()
+- 将类数组对象转换成数组：var args = Array.prototype.slice.call(arguments);
+- if强制转换为布尔值：
+    - 对象：true
+    - undefined：false
+    - null：false
+    - 布尔值：布尔的值
+    - +0：true
+    - -0 || NaN：false
+    - 字符串''：false
+- 立即执行函数的写法：
+    - (function(){ /* code */ }()); // 推荐
+    - (function(){ /* code */ })();
+
+    - var i = function(){ return 10; }();
+    - true && function(){ /* code */ }();
+    - 0, function(){ /* code */ }();
+
+    - !function(){ /* code */ }();
+    - ~function(){ /* code */ }();
+    - -function(){ /* code */ }();
+    - +function(){ /* code */ }();
+
+    - new function(){ /* code */ }
+    - new function(){ /* code */ }() // 带参数
+- [更多](http://fe-style-guide.dev-ag.56qq.com/)
+
+5. ES6代码规范：
+- 将类数组对象转换成数组：var args = Array.from(oldArr);
+- 数组使用includes 替代 indexOf判断是否包含某一项元素：arr.includes(1)
+- 链式调用；
+- 使用**操作符来计算乘方：2 ** 10
+- 字符串类型转换：String(9)；
+- 数字类型转换：const inputValue = '4'
+    - Number(inputValue)
+    - parseInt(inputValue)
+    - inputValue >> 0     // 移位符
+- 布尔类型转换：Boolean(1);
