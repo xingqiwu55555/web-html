@@ -1,4 +1,4 @@
-# 平时常用的技巧
+## 需了解掌握的方法
 
 1. canvas转成图片，注意：pc端可下载，移动端不可下载，只可利用canvas转图片后进行长按保存
   - 注意错误提示：Uncaught DOMException: Failed to execute 'toDataURL' on 'HTMLCanvasElement': Tainted canvases may not be exported，解决 —— img.setAttribute("crossOrigin",'Anonymous');
@@ -148,3 +148,28 @@ function IdentityCodeValid (code) {
     - parseInt(inputValue)
     - inputValue >> 0     // 移位符
 - 布尔类型转换：Boolean(1);
+
+## 特殊用法
+1. HTML5 DOM元素类名相关操作API classList：
+```
+<body class="a b c"></body>
+
+// js: document.body.classList
+// 控制台：
+DOMTokenList{
+    0: "a",
+    1: "b",
+    2: "c",
+    length: 3,    // 元素类名的个数
+    item: item(),    // 支持一个参数，为类名的索引，返回对应的类名
+    contains: contains(),   // 支持一个类名字符串参数，表示往类名列表中是否包含该类名，返回boolean，类似jquery的hasClass()
+    add: add(),     // 支持一个类名字符串参数，表示往类名列表中新增一个类名；如果之前类名存在，则忽略添加
+    remove: remove(),   // 支持一个类名字符串参数，表示往类名列表中移除该类名
+    iterator: iterator(),   // 
+    toString: toString(),   //document.body.classList.toString() === document.body.className;
+    toggle: toggle()    // 支持一个类名字符串参数，无则加勉，有则移除之意
+}
+
+```
+[更多](http://www.zhangxinxu.com/wordpress/2013/07/domtokenlist-html5-dom-classlist-%E7%B1%BB%E5%90%8D/)
+

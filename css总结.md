@@ -1,3 +1,7 @@
+## 实用网站
+1. css3测试支持与否：https://airen.github.io/css3test/
+2. 查看css兼容性：https://caniuse.com/
+
 ## 平时比较常用的css样式和技巧
 
 1. 商品价格文本中的一条线，例：
@@ -96,7 +100,22 @@ input:disabled {
 }
 ```
 
-5. box布局:
+5. 文字两端对齐：
+```
+div{
+  text-align: justify;
+}
+```
+
+6. textarea去掉右下角：
+```
+textarea{
+  resize: none;
+}
+```
+
+## 布局
+1. box布局:
 - 父元素设置： display: box;
   - box-orient: horizontal/vertical
       - 子代按水平排列或竖直排列，注：所有主流浏览器不支持该属性，必须加上前缀；
@@ -127,10 +146,16 @@ input:disabled {
       - 若子元素设置固定宽度，则该子元素应用固定宽度，其他未设置固定宽度的字元素将余下的父级宽度（父级-已设置固定宽度的子代元素的总宽度按 number占份数）；
       - 若子元素有margin值，则按余下（父级宽度-子代固定总宽度-总margin值）宽度占number份；
 
-6. 
+2. flex布局：
 
 
-
+## 特殊用法
+1. HSLA colors使用参考指南,取值：
+- <length>：Hue色调，0(或360)表示红色，120表示绿色，240表示蓝色，当然可以取其他数值来确定其它颜色；
+- <percentage>：Saturation(饱和度)，取值为0%到100%之间的值；
+- <percentage>：Lightness(亮度)，取值为0%到100%之间的值；
+- <opacity>：alpha(透明度)，取值在0到1之间；
+[更多](http://www.zhangxinxu.com/css3/css3-hsla-colors.php)
 
 
 
