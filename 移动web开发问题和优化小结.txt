@@ -1,18 +1,18 @@
-һ��meta��ǩ
-1��ҳ�����ֻ�����ʾʱ���������meta������ҳ��ǿ�����ĵ��Ŀ������豸�Ŀ��ȱ���1:1�������ĵ����Ŀ��ȱ�����1.0���Ҳ������û�ͨ������������ŵȲ�������Ļ�Ŵ�������������ios10���ϵİ汾�Ѿ�ʧЧ�ˣ���ʹ���������meta���û�˫�������Ż��ǿ�������ҳ�档
+一、meta标签
+1、页面在手机上显示时，增加这个meta可以让页面强制让文档的宽度与设备的宽度保持1:1，并且文档最大的宽度比例是1.0，且不允许用户通过点击或者缩放等操作对屏幕放大浏览。（这个在ios10以上的版本已经失效了，即使加了下面的meta，用户双击，缩放还是可以缩放页面。
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
 
-2����ֹios���Զ�ʶ��绰
+2、禁止ios上自动识别电话
 <meta content="telephone=no" name="format-detection" />
 
-3����ֹandroid���Զ�ʶ������
+3、禁止android上自动识别邮箱
 <meta content="email=no" name="format-detection" />
 
-4���������������ios�ϵ�safari�ϵ�ַ���Ͷ�����ʽ����
+4、下面两个是针对ios上的safari上地址栏和顶端样式条的
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<!-- ��˵��ios7���ϰ汾��ûЧ���� -->
+<!-- 听说在ios7以上版本就没效果了 -->
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<!-- ��ѡdefault��black��black-translucent �����Ҷ�����black-->
+<!-- 可选default、black、black-translucent 但是我都是用black-->
 
 
 

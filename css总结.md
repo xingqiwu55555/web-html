@@ -40,7 +40,7 @@ div {
 </div>
 ```
 
-* 固宽2：利用表格中元素垂直居中
+* 不固宽2：利用表格中元素垂直居中
 ```
 <div style="width:200px;height:200px;border:2px solid #000;display:table-cell;vertical-align:middle;text-align: center;">
   <div style="width:100px;height:100px;display:inline-block;background-color: red;"></div>

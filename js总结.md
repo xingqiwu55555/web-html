@@ -1,3 +1,37 @@
+## 基础知识
+1. 创建函数的几种方式
+- a.声明函数：
+```
+function fn1(){}
+```
+- b.创建匿名函数表达式：
+```
+var fn1 = function (){}
+
+// 注意采用这种方法创建的函数为匿名函数，即没有函数name
+var fn1 = function (){};
+getFunctionName(fn1).length;  //0
+```
+- c.创建具名函数表达式：
+```
+// 注意：具名函数表达式的函数名只能在创建函数内部使用
+var fn1 = function xxcanghai(){};
+// 注意：在对象内定义函数如var o={ fn : function (){…} }，也属于函数表达式
+```
+- d.Function构造函数：
+```
+var fn1 = function (){}
+```
+- e.自执行函数：自执行函数属于上述的“函数表达式”，规则相同
+```
+(function(){alert(1);})();
+(function fn1(){alert(1);})();
+```
+- f.其它创建函数的方法：比如eval、setTimeout、setInterval
+
+2. 函数节流
+
+
 ## 需了解掌握的方法
 
 1. canvas转成图片，注意：pc端可下载，移动端不可下载，只可利用canvas转图片后进行长按保存
@@ -172,4 +206,20 @@ DOMTokenList{
 
 ```
 [更多](http://www.zhangxinxu.com/wordpress/2013/07/domtokenlist-html5-dom-classlist-%E7%B1%BB%E5%90%8D/)
+
+2. 获取时间戳：
+```
+// 普通： var timestamp = new Date().getTime()
+
+// 进阶： var timestamp = (new Date()).valueOf()
+
+// 终极： var timestamp = +new Date()
+// 隐式转换
+```
+
+# 学名
+1. O(n^2)
+- O()表示算法的时间复杂度，O(1)表示常数阶复杂度，O(n)表示线性阶复杂度，O(n^2)表示平方阶复杂度；
+- 时间复杂度：在计算机科学中，算法的时间复杂度是一个函数，它是定量描述了该算法的运行时间。
+- 算法除了时间复杂度以外，还有空间复杂度，他们共同构成了算法复杂度；
 
