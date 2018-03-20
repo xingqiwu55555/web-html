@@ -29,7 +29,8 @@ var fn1 = function (){}
 ```
 - f.其它创建函数的方法：比如eval、setTimeout、setInterval
 
-2. 函数节流
+2. 继承的多种方式和优缺点
+
 
 
 ## 需了解掌握的方法
@@ -182,6 +183,7 @@ function IdentityCodeValid (code) {
     - parseInt(inputValue)
     - inputValue >> 0     // 移位符
 - 布尔类型转换：Boolean(1);
+- Object.assign()，对象合并
 
 ## 特殊用法
 1. HTML5 DOM元素类名相关操作API classList：
