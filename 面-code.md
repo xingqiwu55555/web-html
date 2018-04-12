@@ -1,3 +1,6 @@
+## js知识代码考察题
+#### 1. 手写promise
+
 ## js代码题
 #### 1. 综合考察js题
 - [详细](http://www.cnblogs.com/xxcanghai/p/5189353.html)
