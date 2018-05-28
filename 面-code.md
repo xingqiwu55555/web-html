@@ -149,3 +149,17 @@ a=6;
 a(); 
 tips：预解析是把带有var和function关键字的事先声明，但不会赋值；函数声明优先变量声明。
 ```
+
+#### 8.类型转换
+```
+if([]==false){console.log(1)};  // 1
+if({}==false){console.log(2)};
+if([]){console.log(3)}          // 3
+if([1]==[1]){console.log(4)}
+
+/*
+* 1/2会被转成数字，3被转成boolean，4地址不一样；
+* []转换为数字为0，{}转换为数字为 NaN；
+* []和{}转换为boolean为true；
+*/
+```
