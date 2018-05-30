@@ -1,5 +1,5 @@
 ## 基础知识
-1. 创建函数的几种方式
+#### 1. 创建函数的几种方式
 - a.声明函数：
 ```
 function fn1(){}
@@ -29,7 +29,25 @@ var fn1 = function (){}
 ```
 - f.其它创建函数的方法：比如eval、setTimeout、setInterval
 
-2. 继承的多种方式和优缺点
+#### 2. 继承的多种方式和优缺点
+
+#### 3. 函数柯里化
+
+#### 4. instanceof 
+1. 常规用法：
+- 使用 instanceof 断一个实例是否属于某种类型：
+```
+// 判断 foo 是否是 Foo 类的实例 , 并且是否是其父类型的实例
+function Aoo(){} 
+function Foo(){} 
+Foo.prototype = new Aoo();//JavaScript 原型继承
+ 
+var foo = new Foo(); 
+console.log(foo instanceof Foo)//true 
+console.log(foo instanceof Aoo)//true
+```
+
+
 
 
 
