@@ -178,6 +178,10 @@ box-shadow: offset-x offset-y blur spread color position;
       - start 水平左对齐；
       - end 水平右对齐；
       - center 水平居中对齐；
+  - box-lines: single/multiple
+      - 子元素超出了容器是否允许子元素换行
+      - single 不允许(默认)
+      - multiple 允许
 
 - 子元素设置：
   - box-flex: number;
@@ -185,6 +189,10 @@ box-shadow: offset-x offset-y blur spread color position;
       - 若子元素设置固定宽度，则该子元素应用固定宽度，其他未设置固定宽度的字元素将余下的父级宽度（父级-已设置固定宽度的子代元素的总宽度按 number占份数）；
       - 若子元素有margin值，则按余下（父级宽度-子代固定总宽度-总margin值）宽度占number份；
 
+  - box-ordinal-group: integer
+      - 子元素的显示次序，数值越小越排前;
+      - integer: 一个整数，默认为1，数值越小越排前;
+      
 2. flex布局：
 
 
