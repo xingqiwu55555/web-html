@@ -1,4 +1,4 @@
-## js知识代码考察题
+## js知识代码题
 #### 1. 手写promise
 
 ## js代码题
@@ -162,4 +162,29 @@ if([1]==[1]){console.log(4)}
 * []转换为数字为0，{}转换为数字为 NaN；
 * []和{}转换为boolean为true；
 */
+```
+
+#### 9.this
+```
+// 第一问
+var obj = {
+    foo(){
+        console.log(this);
+    }
+}
+var bar = obj.foo;
+
+console.log(obj.foo());  // ?
+console.log(bar());   // ?
+
+// 第二问
+function fn (){
+    console.log(this);
+}
+function fn2 (){
+    console.log(111111);
+}
+var arr = [fn, fn2];
+
+arr[0]();   // ?  
 ```
