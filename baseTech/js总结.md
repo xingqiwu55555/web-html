@@ -1,5 +1,5 @@
 ## 基础知识
-#### 创建函数的几种方式
+### 创建函数的几种方式
 - a.声明函数：
 ```
 function fn1(){}
@@ -29,10 +29,11 @@ var fn1 = function (){}
 ```
 - f.其它创建函数的方法：比如eval、setTimeout、setInterval
 
-#### 从原型到原型链
-#### 继承的多种方式和优缺点
+### call/apply/bind
+### 从原型到原型链
+### 继承的多种方式和优缺点
 
-#### instanceof 
+### instanceof 
 1. 常规用法：
 - 使用 instanceof 断一个实例是否属于某种类型：
 ```
@@ -52,7 +53,7 @@ console.log(foo instanceof Aoo)//true
 
 ## 需了解掌握的方法
 
-1. canvas转成图片，注意：pc端可下载，移动端不可下载，只可利用canvas转图片后进行长按保存
+### 1. canvas转成图片，注意：pc端可下载，移动端不可下载，只可利用canvas转图片后进行长按保存
   - 注意错误提示：Uncaught DOMException: Failed to execute 'toDataURL' on 'HTMLCanvasElement': Tainted canvases may not be exported，解决 —— img.setAttribute("crossOrigin",'Anonymous');
   
 ```
@@ -78,7 +79,7 @@ function pcDown (url) {
 } 
 ```
 
-2. 身份证验证
+### 2. 身份证验证
 ```
 //身份证验证规则
 function IdentityCodeValid (code) {
@@ -123,7 +124,7 @@ function IdentityCodeValid (code) {
 }
 ```
 
-3. js正则表达式验证数字
+### 3. js正则表达式验证数字
 ```
 /*
 验证数字：^[0-9]*$ 
@@ -161,7 +162,7 @@ function IdentityCodeValid (code) {
 */
 ```
 
-4. ES5代码规范：
+### 4. ES5代码规范：
 - 拷贝数组： var newArr = oldArr.slice()
 - 将类数组对象转换成数组：var args = Array.prototype.slice.call(arguments);
 - if强制转换为布尔值：
@@ -189,7 +190,7 @@ function IdentityCodeValid (code) {
     - new function(){ /* code */ }() // 带参数
 - [更多](http://fe-style-guide.dev-ag.56qq.com/)
 
-5. ES6代码规范：
+### 5. ES6代码规范：
 - 将类数组对象转换成数组：var args = Array.from(oldArr);
 - 数组使用includes 替代 indexOf判断是否包含某一项元素：arr.includes(1)
 - 链式调用；
@@ -203,7 +204,7 @@ function IdentityCodeValid (code) {
 - Object.assign()，对象合并
 
 ## 特殊用法
-1. HTML5 DOM元素类名相关操作API classList：
+### 1. HTML5 DOM元素类名相关操作API classList：
 ```
 <body class="a b c"></body>
 
@@ -226,7 +227,7 @@ DOMTokenList{
 ```
 [更多](http://www.zhangxinxu.com/wordpress/2013/07/domtokenlist-html5-dom-classlist-%E7%B1%BB%E5%90%8D/)
 
-2. 获取时间戳：
+### 2. 获取时间戳：
 ```
 // 普通： var timestamp = new Date().getTime()
 
@@ -236,8 +237,8 @@ DOMTokenList{
 // 隐式转换
 ```
 
-# 学名
-1. O(n^2)
+## 学名
+### 1. O(n^2)
 - O()表示算法的时间复杂度，O(1)表示常数阶复杂度，O(n)表示线性阶复杂度，O(n^2)表示平方阶复杂度；
 - 时间复杂度：在计算机科学中，算法的时间复杂度是一个函数，它是定量描述了该算法的运行时间。
 - 算法除了时间复杂度以外，还有空间复杂度，他们共同构成了算法复杂度；
