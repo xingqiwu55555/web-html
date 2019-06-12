@@ -192,3 +192,12 @@ function creeateInstance<A extends Animal>(c: new () => A): A {
 createInstance(Lion).keeper.nametag;
 createInstance(Bee).keeper.hasMask;
 ```
+
+
+# important points
+### 类型别名 - type VS 接口 - interface 
+[参考](https://juejin.im/post/5c14bb21f265da61417176d4)，总结：
+- 类型别名 能像interface一样，但是他们有三个重要的区别（联合类型，声明合并）
+- 使用适合你或者你团队的东西，但是要保持一致
+- 当你写个库或者定义第三方环境类型的时候，在公开的API中总是使用interface
+- 在你的React组件的state/props中考虑使用类型别名
