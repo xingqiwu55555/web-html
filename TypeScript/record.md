@@ -201,3 +201,19 @@ createInstance(Bee).keeper.hasMask;
 - 使用适合你或者你团队的东西，但是要保持一致
 - 当你写个库或者定义第三方环境类型的时候，在公开的API中总是使用interface
 - 在你的React组件的state/props中考虑使用类型别名
+
+# issues
+### 外部枚举，无法被正常使用
+```
+// ACCOUNT_ROLE 定义为： declare enum ACCOUNT_ROLE
+export const ACCOUNT_ROLE_DISPLAY = {
+  [ACCOUNT_ROLE.STORE_KEEPER]: '仓管',
+  PURCHASER: '采购',
+  OPERATING_OFFICER: '业务主管',
+}
+```
+
+### 元素隐式具有 ‘any’ 类型，因为类型 ‘{}’ 没有索引签名
+```
+headers['Content-Type'] = 'application/json'
+```
