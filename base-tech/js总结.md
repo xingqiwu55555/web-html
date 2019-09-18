@@ -30,7 +30,9 @@ var fn1 = function (){}
 - f.其它创建函数的方法：比如eval、setTimeout、setInterval
 
 ### call/apply/bind
+
 ### 从原型到原型链
+
 ### 继承的多种方式和优缺点
 
 ### instanceof 
@@ -204,7 +206,7 @@ function IdentityCodeValid (code) {
 - Object.assign()，对象合并
 
 ## 特殊用法
-### 1. HTML5 DOM元素类名相关操作API classList：
+### 1. HTML5 DOM 元素类名相关操作 API classList：
 ```
 <body class="a b c"></body>
 
@@ -216,7 +218,7 @@ DOMTokenList{
     2: "c",
     length: 3,    // 元素类名的个数
     item: item(),    // 支持一个参数，为类名的索引，返回对应的类名
-    contains: contains(),   // 支持一个类名字符串参数，表示往类名列表中是否包含该类名，返回boolean，类似jquery的hasClass()
+    contains: contains(),   // 支持一个类名字符串参数，表示往类名列表中是否包含该类名，返回boolean，类似jquery 的 hasClass()
     add: add(),     // 支持一个类名字符串参数，表示往类名列表中新增一个类名；如果之前类名存在，则忽略添加
     remove: remove(),   // 支持一个类名字符串参数，表示往类名列表中移除该类名
     iterator: iterator(),   // 
