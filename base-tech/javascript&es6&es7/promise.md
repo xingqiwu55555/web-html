@@ -1,8 +1,99 @@
-## Promise
+# Promise
 Promise 是异步编程的一种解决方案，比传统的异步解决方案【回调函数】和【事件】更合理、更强大。
 
+Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，也一个构造函数，从它可以获取异步操作的消息。Promise 提供统一的 API，各种异步操作都可以用同样的方法进行处理。
 
-## Promise 与[事件循环(Event Loop)](https://github.com/xingqiwu55555/web-html/tree/master/base-tech/javascript\&es6\&es7/event-loop.md)
+出现的原因：原生 ajax 出现了回调地狱的灾难，而为了我们的代码更加具有可读性和可维护性，我们需要将数据请求与数据处理明确的区分开来。
+
+原生 ajax 使用补充：
+```
+var url = 'https://www.baidu.com';
+var result;
+
+var XHR = new XMLHttpRequest();
+XHR.open('GET', url, true);
+XHR.send();
+
+XHR.onreadystatechange = function() {
+    if (XHR.readyState == 4 && XHR.status == 200) {
+        result = XHR.response;
+        console.log(result);
+    }
+}
+```
+
+# 基础知识
+Promise 无法取消，一旦新建它就会立即执行
+
+## Promise 的三种状态
+1. pending: 等待中，或者进行中，表示还没有得到结果；
+2. resolved(Fulfilled): 已经完成，表示得到了我们想要的结果，可以继续往下执行；
+3. rejected: 也表示得到结果，但是由于结果并非我们所愿，因此拒绝执行；
+
+这三种状态不受外界影响，而且状态只能从 pending 改变为 resolved 或 rejected，不可逆。在Promise对象的构造函数中，将一个函数作为第一个参数。而这个函数，就是用来处理Promise的状态变化。resolve、reject函数，分别对应状态 resolved、rejected。
+
+## Promise 的 then 方法
+then 方法是定义在 Promise 原型对象 Promise.prototype 上的。
+
+then 方法 可以接收构造函数中处理的状态变化，并分别对应执行。then 方法有 2 个参数，第一个函数接收 resolved 状态的执行，第二个参数接收 rejected 状态的执行。
+
+then 方法 的执行结果也会返回一个 Promise 对象。因此我们可以进行 then 的链式执行，这也是解决回调地狱的主要方式。
+
+注意：then(null, function() {}) 就等同于catch(function() {})
+
+## Promise 的 Promise.all() 和 Promise.race() 方法
+Promise.all：接收一个 Promise 对象组成的数组作为参数，当这个数组所有的 Promise 对象状态都变成 resolved 或者 rejected 的时候，它才会去调用 then 方法。对应场景为：
+  当有一个 ajax 请求，它的参数需要另外 2 个甚至更多请求都有返回结果之后才能确定，那么这个时候，就需要用到 Promise.all 来帮助我们应对这个场景。
+
+Promise.race：也是接收一个 Promise 对象组成的数组作为参数，不同的是，只要当数组中的其中一个 Promise 状态变成 resolved 或 rejected 时，就可以调用 .then 方法了，而传递给then方法的值也会有所不同。
+
+## 其它方法
+### 1. Promise.prototype.catch()
+catch 方法是 .then(null, rejection) 或 .then(undefined, rejection) 的别名，用于指定发生错误时的回调函数。
+
+### 2. Promise.prototype.finally()
+finally 不管 promise 最后的状态，在执行完 then 或 catch 指定的回调函数以后，都会执行 finally 方法指定的回调函数。
+```
+Promise.prototype.finally = function (callback) {
+  let P = this.constructor;
+  return this.then(
+    value  => P.resolve(callback()).then(() => value),
+    reason => P.resolve(callback()).then(() => { throw reason })
+  );
+};
+```
+
+
+### 3. [Promise.all()](http://es6.ruanyifeng.com/#docs/promise#Promise-all)
+Promise.all 方法看阮一峰的详解更好一些。
+```
+const p = Promise.all([p1, p2, p3]);
+```
+p 的状态由p1，p2，p3决定：
+
+1. 只有 p1、p2、p3 的状态都变成 fulfilled，p 的状态才会变成 fulfilled，此时 p1、p2、p3 的返回值组成一个数组，传递给 p 的回调函数。
+2. 只要 p1、p2、p3 之中有一个被 rejected，p 的状态就变成 rejected，此时第一个被 reject 的实例的返回值，会传递给p的回调函数。
+
+但注意：如果作为参数的 Promise 实例，自己定义了 catch 方法，那么它一旦被 rejected，并不会触发 Promise.all() 的 catch 方法。
+
+
+### 4. Promise.race()
+```
+const p = Promise.race([p1, p2, p3]);
+```
+与 Promise.all() 不同的是，只要 p1、p2、p3 之中有一个实例率先改变状态，p 的状态就跟着改变。那个率先改变的 Promise 实例的返回值，就传递给p的回调函数。
+
+
+### 5. [Promise.resolve()](http://es6.ruanyifeng.com/#docs/promise#Promise-resolve)
+
+
+
+
+
+
+
+
+# Promise 与[事件循环(Event Loop)](https://github.com/xingqiwu55555/web-html/tree/master/base-tech/javascript\&es6\&es7/event-loop.md)
 ```
 (function test() {
     setTimeout(function() {console.log(4)}, 0);
@@ -22,7 +113,7 @@ Promise 是异步编程的一种解决方案，比传统的异步解决方案【
 1. Promise.then 是异步执行的，而创建 Promise 实例（executor）是同步执行的。
 2. setTimeout 的异步和 Promise.then 的异步看起来 “不太一样” ——至少是不在同一个队列中。
 
-## Promise 面试题
+# Promise 面试题
 * Promise 解决的痛点还有其他方法可以解决吗？如果有，请列举。
 * 如何确保一个变量是可信任的Promise（Promise.resolve方法传入不同值的不同处理有哪些）
 
@@ -33,18 +124,18 @@ Promise 是异步编程的一种解决方案，比传统的异步解决方案【
 * [当面试官问你Promise的时候，他究竟想听到什么？](https://zhuanlan.zhihu.com/p/29235579)
 * [网页中预加载20张图片资源问题](https://zhuanlan.zhihu.com/p/29792886)
 
-### 什么是 Promise？
+## 什么是 Promise？
 
-### 如果向Promise.all()和Promise.race()传递空数组，运行结果会有什么不同？
+## 如果向Promise.all()和Promise.race()传递空数组，运行结果会有什么不同？
 
-### 传统的回调式异步操作有什么缺点？（Promise是如何解决异步操作）
+## 传统的回调式异步操作有什么缺点？（Promise是如何解决异步操作）
 
-### Promise 中的异步模式有哪些？有什么区别？
+## Promise 中的异步模式有哪些？有什么区别？
 
-### Promise 的业界实现都有哪些？
+## Promise 的业界实现都有哪些？
 
-### Promise是如何捕获异常的？与传统的try/catch相比有什么优势？
-传统的try/catch捕获异常方式是无法捕获异步的异常的，代码如下：
+## Promise是如何捕获异常的？与传统的try/catch相比有什么优势？
+传统的 try/catch 捕获异常方式是无法捕获异步的异常的，代码如下：
 ```
 try {
 	setTimeout(function(){
@@ -80,10 +171,10 @@ promise.then((res) => {
 })
 ```
 
-### 能不能手写一个 Promise 的 polyfill?
+## 能不能手写一个 Promise 的 polyfill?
 
 
-## 参考
+# 参考
 - [JavaScript Promise迷你书（中文版](http://liubin.org/promises-book/#chapter1-what-is-promise)
 - [JavaScript Promise：简介 | Web | Google Developers](https://developers.google.com/web/fundamentals/primers/promises?hl=zh-cn)
 - [Promise 原理讲解 && 实现一个Promise对象 (遵循Promise/A+规范)](https://juejin.im/post/5aa7868b6fb9a028dd4de672#heading-10)
