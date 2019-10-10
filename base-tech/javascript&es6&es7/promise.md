@@ -50,6 +50,15 @@ Promise.race：也是接收一个 Promise 对象组成的数组作为参数，�
 ## 其它方法
 ### 1. Promise.prototype.catch()
 catch 方法是 .then(null, rejection) 或 .then(undefined, rejection) 的别名，用于指定发生错误时的回调函数。
+```
+getJSON('/posts.json').then(function(posts) {
+  // ...
+}).catch(function(error) {
+  // 处理 getJSON 和 前一个回调函数运行时发生的错误
+  console.log('发生错误！', error);
+});
+```
+then 方法指定的回调函数，如果运行中抛出错误，也会被 catch 方法捕获。
 
 ### 2. Promise.prototype.finally()
 finally 不管 promise 最后的状态，在执行完 then 或 catch 指定的回调函数以后，都会执行 finally 方法指定的回调函数。
@@ -85,6 +94,82 @@ const p = Promise.race([p1, p2, p3]);
 
 
 ### 5. [Promise.resolve()](http://es6.ruanyifeng.com/#docs/promise#Promise-resolve)
+该方法会返回一个新的 Promise 实例，该实例的状态为 resolved。
+```
+Promise.resolve('foo')
+// 等价于
+new Promise(resolve => resolve('foo'))
+```
+Promise.resolve方法的参数分成四种情况：
+1. 参数是一个 Promise 实例
+如果参数是 Promise 实例，那么 Promise.resolve 将不做任何修改、原封不动地返回这个实例。
+
+2. 参数是一个 thenable 对象：thenable 对象指的是具有 then 方法的对象
+```
+let thenable = {
+  then: function(resolve, reject) {
+    resolve(42);
+  }
+};
+
+let p1 = Promise.resolve(thenable);
+p1.then(function(value) {
+  console.log(value);  // 42
+});
+```
+
+3. 参数不是具有then方法的对象，或根本就不是对象，then 方法的 resolve 回调接收的参数就是传入的 参数
+```
+const p = Promise.resolve('Hello');
+
+p.then(function (s){
+  console.log(s)
+});
+// Hello
+```
+
+4. 不带有任何参数
+Promise.resolve()方法允许调用时不带参数，直接返回一个resolved状态的 Promise 对象。
+```
+setTimeout(function () {
+  console.log('three');
+}, 0);
+
+Promise.resolve().then(function () {
+  console.log('two');
+});
+
+console.log('one');
+```
+
+### 6. Promise.reject()
+该方法会返回一个新的 Promise 实例，该实例的状态为rejected。
+```
+const p = Promise.reject('出错了');
+// 等同于
+const p = new Promise((resolve, reject) => reject('出错了'))
+
+p.then(null, function (s) {
+  console.log(s)
+});
+// 出错了
+```
+注意：Promise.reject()方法的参数，会原封不动地作为reject的理由，变成后续方法的参数。这一点与Promise.resolve方法不一致。
+```
+const thenable = {
+  then(resolve, reject) {
+    reject('出错了');
+  }
+};
+
+Promise.reject(thenable)
+.catch(e => {
+  console.log(e === thenable)
+})
+// true
+```
+
+### 7. Promise.try()
 
 
 
@@ -181,3 +266,4 @@ promise.then((res) => {
 - [一步一步实现一个 Promise](https://juejin.im/post/5d59757f6fb9a06ae76405c6)
 - [Promise 与事件循环](https://www.jianshu.com/p/559d25c88670)
 - [前端碎碎念 之 nextTick, setTimeout 以及 setImmediate 三者的执行顺序](https://segmentfault.com/a/1190000008595101)
+- [自测题](https://stackblitz.com/edit/js-promise2?file=index.js)
