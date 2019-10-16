@@ -41,6 +41,8 @@ then 方法 的执行结果也会返回一个 Promise 对象。因此我们可�
 
 注意：then(null, function() {}) 就等同于catch(function() {})
 
+如果调用 then 的 Promise 的状态（resolved 或 rejected）发生改变，但是 then 中并没有关于这种状态的回调函数，那么 then 将创建一个没有经过回调函数处理的新 Promise 对象，这个新 Promise 只是简单地接受调用这个 then 的原 Promise 的终态作为它的终态。
+
 ## Promise 的 Promise.all() 和 Promise.race() 方法
 Promise.all：接收一个 Promise 对象组成的数组作为参数，当这个数组所有的 Promise 对象状态都变成 resolved 或者 rejected 的时候，它才会去调用 then 方法。对应场景为：
   当有一个 ajax 请求，它的参数需要另外 2 个甚至更多请求都有返回结果之后才能确定，那么这个时候，就需要用到 Promise.all 来帮助我们应对这个场景。

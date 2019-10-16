@@ -15,7 +15,7 @@
 6. Higher-Order Components 高阶组件
 7. Render Props 渲染属性
 
-### Hooks
+### Hook
 
 ### Posts
 1. [Smart 组件 vs Dumb 组件](http://huziketang.mangojuice.top/books/react/lesson43)
