@@ -11,4 +11,8 @@
 
 2. 什么时候我会用 Hook？ 如果你在编写函数组件并意识到需要向其添加一些 state，以前的做法是必须将其它转化为 class。现在你可以在现有的函数组件中使用 Hook。
 
+## 坑点
+1. const [state, setState] = useState(0)，中setState每次调用，会重新渲染组件；
+2. useEffect 在每次渲染的时候都会执行，且会在执行当前 effect 之前对上一个 effect 进行清除，如果effect只执行一次(第二参数为[])，它对应的清除函数会在组件卸载时执行(这里的应用和 class 组件的 componentDidMount、componentWillUnMount 有相同点)；
+
 
