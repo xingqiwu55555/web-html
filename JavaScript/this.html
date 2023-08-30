@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript高级 —— this demo</title>
+</head>
+<body>
+  <script>
+    /* this —— 非/严格模式下， */
+    // 'use strict';
+    var a = 20;
+    function foo() {
+      var a = 1;
+      var obj = {
+        a: 10,
+        c: this.a + 20,
+        fn: function () {
+          return this.a;
+        }
+      }
+      return obj.c;
+    }
+    console.log(foo());    // 严格模式是 undefined, 非严格模式是 40
+    console.log(window.foo());    // 40
+  </script>
+  <script>
+    /* call/apply 使用场景 —— 将类数组对象转换为数组 */
+    function exam(a, b, c, d, e) {
+      // 先看看函数的自带属性 arguments 什么是样子的
+      console.log("Arguments 对象：", arguments);
+      // 使用call/apply将arguments转换为数组, 返回结果为数组，arguments自身不会改变
+      var arg = [].slice.call(arguments);
+      console.log("Array", arg);
+    }
+    exam(2, 8, 9, 10, 3);
+    // 也常常使用该方法将DOM中的 nodelist 转换为数组
+    // [].slice.call( document.getElementsByTagName('li') );
+  </script>
+  <script>
+    /* call/apply 使用场景 —— 灵活修改this指向 */
+    var foo = {
+      name: 'joker',
+      showName: function () {
+        console.log(this.name);
+      }
+    }
+    var bar = {
+      name: 'rose'
+    }
+    foo.showName.call(bar);
+  </script>
+  <script>
+    /* call/apply 使用场景 —— 实现继承 */
+    
+    // 定义父级的构造函数
+    var Person = function (name, age) {
+      this.name = name;
+      this.age = age;
+      this.gender = ['man', 'woman'];
+    }
+
+    // 定义子类的构造函数
+    var Student = function (name, age, high) {
+
+      // use call
+      Person.call(this, name, age);
+      this.high = high;
+    }
+    Student.prototype.message = function () {
+      console.log('name:' + this.name + ', age:' + this.age + ', high:' + this.high + ', gender:' + this.gender[0] + ';');
+    }
+
+    new Student('xiaom', 12, '150cm').message();
+  </script>
+  <script>
+    /* call/apply 使用场景 —— 在向其他执行上下文的传递中，确保 this 的指向保持不变 */
+    /* 要求 this 指向 obj
+    var obj = {
+      a: 20,
+      getA: function () {
+        setTimeout(function () {
+          console.log(this.a)
+        }, 1000)
+      }
+    }
+    obj.getA();
+    */
+    // 解法一：在 getA 中将 this 的引用保存起来
+    // 解法二：借助闭包与 apply 方法，封装一个 bind 方法，如下实现
+    // 解法三：ES5 中已经自带 bind 方法，与解法二类似
+    // 解法四：ES6 中使用箭头函数的方式
+    function bind(fn, obj) {
+      return function () {
+        return fn.apply(obj, arguments);
+      }
+    }
+    var obj = {
+      a: 20,
+      getA: function () {
+        setTimeout(bind(function () {
+          console.log(this.a)
+        }, this), 1000)
+      }
+    }
+    obj.getA();
+  </script>
+</body>
+</html>
