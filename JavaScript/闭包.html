@@ -59,6 +59,24 @@
     fn();
   </script>
   <script>
+    /* 闭包 —— 特殊的闭包 */
+    function foo() {
+      var a = 10;
+
+      const fn1 = () => {
+        return a;
+      }
+
+      function fn2() {
+        return 10;
+      }
+
+      fn2();
+    }
+
+    foo();
+  </script>
+  <script>
     /* 闭包 —— 闭包在模块中的应用 */
     (function () {
       var a = 10;
@@ -66,12 +84,10 @@
       var test = {
         m: 20,
         add: function (x) {
-          console.log(a + x);
-          // return a + x;
+          return a + x;
         },
         sum: function () {
-          // console.log(a + b + this.m)
-          // return a + b + this.m;
+          return a + b + this.m;
         },
         mark: function (k, j) {
           return k + j;
