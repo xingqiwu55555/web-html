@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 闭包 —— 一个闭包1） */
+    var fn;
+    function foo() {
+      var a = 2;
+      function baz() {
+        console.log(a);
+      }
+      fn = baz;
+    }
+    function bar() {
+      fn();
+    }
+    foo();
+    bar(); // 2
+  </script>
+  <script>
+    /* 闭包 —— 一个闭包2） */
+    function foo() {
+      var a = 2;
+
+      return function bar() {
+        var b = 9;
+
+        return function fn() {
+          console.log(a);
+        }
+      }
+    }
+
+    var bar = foo();
+    var fn = bar();
+    fn();
+  </script>
+  <script>
+    /* 闭包 —— 两个闭包 */
+    function foo() {
+      var a = 2;
+
+      return function bar() {
+        var b = 9;
+
+        return function fn() {
+          console.log(a, b);
+        }
+      }
+    }
+
+    var bar = foo();
+    var fn = bar();
+    fn();
+  </script>
+  <script>
+    /* 闭包 —— 闭包在模块中的应用 */
+    (function () {
+      var a = 10;
+      var b = 20;
+      var test = {
+        m: 20,
+        add: function (x) {
+          console.log(a + x);
+          // return a + x;
+        },
+        sum: function () {
+          // console.log(a + b + this.m)
+          // return a + b + this.m;
+        },
+        mark: function (k, j) {
+          return k + j;
+        }
+      }
+      window.test = test;
+    })();
+
+    // test.add(100);
+    // test.sum();
+    test.mark();
+
+    var _mark = test.mark;
+    _mark();
+  </script>
+</body>
+</html>
