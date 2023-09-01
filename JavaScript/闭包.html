@@ -78,7 +78,7 @@
   </script>
   <script>
     /* 闭包 —— 闭包在模块中的应用 */
-    (function () {
+    (function anonymousFunc () {
       var a = 10;
       var b = 20;
       var test = {
@@ -97,11 +97,18 @@
     })();
 
     // test.add(100);
-    // test.sum();
+    test.sum();
     test.mark();
 
     var _mark = test.mark;
     _mark();
+  </script>
+  <script>
+    console.log(111, b);
+    const a = 5;
+    var b = 10;
+    let c = 20;
+    console.log(111, this);
   </script>
 </body>
 </html>
