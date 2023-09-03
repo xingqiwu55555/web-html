@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /** 对象 —— new 关键字的具体实现 **/
+    function Person(name, age) {
+      this.name = name;
+      this.age = age;
+      this.getName = function() {
+          return this.name;
+      }
+    }
+    console.log("Person.prototype: ", Person.prototype);
+    // 将构造函数以参数形式传入
+    function New(func) {
+
+      // 声明一个中间对象，该对象为最终返回的实例
+      var res = {};
+      if (func.prototype !== null) {
+
+          // 将实例的原型指向构造函数的原型
+          res.__proto__ = func.prototype;
+      }
+
+      // ret为构造函数执行的结果，这里通过apply，将构造函数内部的this指向修改为指向res，即为实例对象
+      var ret = func.apply(res, Array.prototype.slice.call(arguments, 1));
+
+      // 当我们在构造函数中明确指定了返回对象时，那么new的执行结果就是该返回对象
+      if ((typeof ret === "object" || typeof ret === "function") && ret !== null) {
+          return ret;
+      }
+
+      // 如果没有明确指定返回对象，则默认返回res，这个res就是实例对象
+      return res;
+    }
+
+    // 通过new声明创建实例，这里的p1，实际接收的正是new中返回的res
+    var p1 = New(Person, 'tom', 20);
+    console.log(p1.getName());
+
+    // 当然，这里也可以判断出实例的类型了
+    console.log("实例类型：", p1 instanceof Person, "实例的原型对象", p1.__proto__); // true
+  </script>
+  <script>
+    /** 对象 —— 原型 **/
+    // 声明构造函数
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+        this.getName = function() {
+            return "my name is " + this.name;
+        }
+    }
+
+    // 通过 prototye 属性，将方法挂载到原型对象上
+    Person.prototype.getName = function() {
+        return this.name;
+    }
+
+    var p1 = new Person('tim', 10);
+    var p2 = new Person('jak', 22);
+    console.log(p1.getName === p2.getName); // true
+    console.log(p1.getName())
+  </script>
+  <script>
+    /** 对象 —— 原型链 **/
+    function add() {}
+    console.log("add 函数的原型对象：", add.__proto__)
+    console.log("add 函数的原型对象的原型对象", add.__proto__.__proto__)
+  </script>
+  <script>
+    /** 对象 —— 继承: 自定义 Object.create() **/
+    function create(proto, options) {
+      // 创建一个空对象
+      var tmp = {};
+
+      // 让这个新的空对象成为父类对象的实例
+      tmp.__proto__ = proto;
+
+      // 传入的方法都挂载到新对象上，新的对象将作为子类对象的原型
+      Object.defineProperties(tmp, options);
+      return tmp;
+    }
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    Person.prototype.getName = function() {
+        return this.name
+    }
+    Person.prototype.getAge = function() {
+        return this.age;
+    }
+
+    function Student(name, age, grade) {
+        // 构造函数继承
+        Person.call(this, name, age);
+        this.grade = grade;
+    }
+    // 原型继承，和使用 Object.create 同等效果
+    Student.prototype = create(Person.prototype, {
+        // 不要忘了重新指定构造函数
+        constructor: {
+            value: Student
+        },
+        getGrade: {
+            value: function() {
+                return `${this.name} is ${this.age} years old, her grade is ${this.grade}`
+            }
+        }
+    })
+
+
+    var s1 = new Student('ming', 22, 5);
+
+    console.log(s1.getGrade());
+    console.log(s1.__proto__); // Student 构造函数的原型对象
+    console.log(s1.__proto__.__proto__); // Person 构造函数的原型对象
+  </script>
+  <script>
+    /** 对象 —— instanceof **/
+    var simpleStr = "This is a simple string";
+    var myString = new String();
+    var newStr = new String("String created with constructor");
+    var myObj = {};
+    var myNonObj = Object.create(null);
+    var newObj = new Object();
+    var myDate = new Date();
+
+    console.log("simpleStr instanceof String: ", simpleStr instanceof String); // 返回 false，非对象实例，因此返回 false
+
+    console.log("myString instanceof String: ", myString instanceof String); // 返回 true
+    console.log("myString instanceof Object: ", myString instanceof Object); // 返回 true
+
+    console.log("newStr instanceof String: ", newStr instanceof String); // 返回 true
+    console.log("newStr instanceof Object: ", newStr instanceof Object); // 返回 true
+
+    console.log("myObj instanceof Object: ", myObj instanceof Object); // 返回 true，尽管原型没有定义
+    console.log("({}) instanceof Object: ", ({}) instanceof Object); // 返回 true，同上
+    console.log("myNonObj instanceof Object: ", myNonObj instanceof Object); // 返回 false，一种创建非 Object 实例的对象的方法
+
+    console.log("newObj instanceof Object: ", newObj instanceof Object); // 返回 true
+
+    console.log("myString instanceof Date: ", myString instanceof Date); //返回 false
+
+    console.log("myDate instanceof Date: ", myDate instanceof Date); // 返回 true
+    console.log("myDate instanceof Object: ", myDate instanceof Object); // 返回 true
+    console.log("myDate instanceof String: ", myDate instanceof String); // 返回 false
+
+  </script>
+</body>
+</html>
