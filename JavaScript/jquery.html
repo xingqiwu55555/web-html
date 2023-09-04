@@ -60,6 +60,7 @@
       }
 
       // jQuery中利用上面实现的扩展机制，添加了许多方法，其中
+      // 通过$.extend扩展的方法，其实就是对工具方法的扩展； 而通过$.fn.extend扩展的方法，就是对于实例方法的扩展，但它是添加到原型上的。
 
       // 直接添加在构造函数上，被称为工具方法
       jQuery.extend({
@@ -87,6 +88,17 @@
       // $符号的由来，实际上它就是jQuery，一个简化的写法，在这里我们还可以替换成其他可用字符
       ROOT.jQuery = ROOT.$ = jQuery;
     })(window);
+
+
+    // 通过扩展方法将拖拽扩展为jQuery的一个实例方法
+    (function ($) {
+      $.fn.extend({
+        becomeDrag: function () {
+          new Drag(this[0]);
+          return this;   // 注意：为了保证jQuery所有的方法都能够链式访问，每一个方法的最后都需要返回this，即返回jQuery实例
+        }
+      })
+    })(jQuery);
   </script>
 </body>
 </html>
