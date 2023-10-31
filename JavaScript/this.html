@@ -105,5 +105,46 @@
     }
     obj.getA();
   </script>
+  <script>
+    /* bind 使用场景 */
+    "use strict"; // 防止 `this` 被封装到到包装对象中
+
+    const x = 0;
+
+    const obj1 = {
+      x: 10,
+      y: 5
+    };
+    const obj2 = {
+      x: 20,
+    };
+
+    function printX() {
+      console.log(this.y)
+    }
+    printX.bind(obj1)();   // 10
+    printX.bind(obj1).bind(obj2)();   // 10
+    // 同一函数多次调用 bind 方法，其新建函数内部的 this 是第一个 bind 方法传入的值。
+
+    function log(...args) {
+      console.log(this, ...args);
+    }
+    log();
+    const boundLog = log.bind("this value", 1, 2);
+    const boundLog2 = boundLog.bind("new this value", 3, 4);
+    boundLog2(5, 6); // "this value", 1, 2, 3, 4, 5, 6
+
+  </script>
+  <script>
+    /* 箭头函数的 this */
+    var y = 10;
+    const obj = {
+      y: 5,
+      printY: () => console.log(this.y)
+    };
+    obj.printY();
+    const printY = obj.printY;
+    printY();
+  </script>
 </body>
 </html>
